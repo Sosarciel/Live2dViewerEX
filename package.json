@@ -1,16 +1,17 @@
 {
-  "name": "@sosarchel-live2dviewerex/live2dviewerex",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "compile": "powershell scripts/compile"
-  },
-  "author": "zwa73",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@zwa73/modular-mixer": "^1.0.4",
-    "@zwa73/utils": "^1.0.234",
-    "pathe": "^1.1.2"
-  }
+	"name": "@sosarciel-live2dviewerex/live2dviewerex",
+	"version": "1.0.3",
+	"main": "index.js",
+	"scripts": {
+		"build": "powershell scripts/build",
+		"compile": "powershell scripts/compile"
+	},
+	"author": "zwa73",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@zwa73/modular-mixer": "^1.0.4",
+		"@zwa73/utils": "^1.0.234",
+		"pathe": "^1.1.2"
+	}
 }
