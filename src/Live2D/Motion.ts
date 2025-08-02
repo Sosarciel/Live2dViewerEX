@@ -30,7 +30,7 @@ export type L2dMotion = {
     FadeIn?: number;
     /**淡出 */
     FadeOut?: number;
-    /**动作持续时间 Spine若不设置, 连续动作则会出现明显卡顿*/
+    /**动作持续时间 Spine若不设置, 连续动作则会出现明显卡顿 若设置仍有卡顿, 使用postprocess动作延长解决 */
     MotionDuration?:number
     /**前置动作指令 使用前置指令是唯一打断idle动作的方式 */
     Command?:MotionCommand;
