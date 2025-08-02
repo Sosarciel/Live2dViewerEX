@@ -9,6 +9,13 @@
 	"author": "zwa73",
 	"license": "ISC",
 	"description": "",
+	"files": [
+		"dist",
+		"data",
+		"schema",
+		"index.js",
+		"index.d.ts"
+	],
 	"dependencies": {
 		"@zwa73/modular-mixer": "^1.0.4",
 		"@zwa73/utils": "^1.0.234",
