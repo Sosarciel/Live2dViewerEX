@@ -1,14 +1,14 @@
-import { AnyL2dvexModel as AnyL2dvexModel, MotionCommand, MotionGroup, MotionTable } from "../Motion";
+import { AnyL2dvexModel, MotionGroup, MotionTable } from "../Motion";
 import { L2dMotion, L2dVarFloatObject, L2dvexLive2DModel } from "../Live2D";
 import { L2dvexSpineModel } from "../Spine";
 import {IJData, None, UtilFunc} from '@zwa73/utils';
 import { L2dvexUtil } from "../UtilFunc";
 import { MAX_WEIGHT, PDIdle, PDStart } from "../Predefined";
 import { VFObject } from "../VarFloat";
-import { UpdateModule } from "./UpdateModule";
-import { StartModule } from "./StartModule";
-import { MenuModule } from "./MenuModule";
-import { composeRefMixinable } from "@zwa73/modular-mixer";
+import { UpdateModule, UpdateModuleMixinOpt } from "./UpdateModule";
+import { StartModule, StartModuleMixinOpt } from "./StartModule";
+import { MenuModule, MenuModuleMixinOpt } from "./MenuModule";
+import { composeClass } from "@zwa73/modular-mixer";
 
 /**l2d菜单动作 */
 export type L2dMenuMotion = Omit<L2dMotion,'Choices'> & Required<Pick<L2dMotion,'Choices'>>;
@@ -148,9 +148,9 @@ export class _L2dvexFramework<T extends AnyL2dvexModel = AnyL2dvexModel> impleme
     }):T extends L2dvexLive2DModel ? TL : TS{
         match.l2d = match.l2d ?? (()=>undefined) as any;
         match.spe = match.spe ?? (()=>undefined) as any;
-        return this.isSpine()
+        return (this.isSpine()
             ? match.spe!(this as L2dvexFramework<L2dvexSpineModel>)
-            : match.l2d!(f(this) as L2dvexFramework<L2dvexLive2DModel>) as any;
+            : match.l2d!(f(this) as L2dvexFramework<L2dvexLive2DModel>)) as any;
     }
     /**是否为spine */
     isSpine():this is L2dvexFramework<L2dvexSpineModel>{
@@ -348,12 +348,15 @@ export class _L2dvexFramework<T extends AnyL2dvexModel = AnyL2dvexModel> impleme
 
 /**组合框架 */
 function compose<T extends AnyL2dvexModel = AnyL2dvexModel>(base:_L2dvexFramework<T>){
-    const mix1 = composeRefMixinable(base,
-        new UpdateModule(base),
-        new StartModule(base) ,
+    const mix1 = composeClass(base,
+        {mixin:new UpdateModule(base),...UpdateModuleMixinOpt},
+        {mixin:new StartModule(base) ,...StartModuleMixinOpt},
     )
+
     const menu = new MenuModule(mix1);
-    const mix2 = composeRefMixinable(mix1, menu);
+    const mix2 = composeClass(mix1,
+        {mixin:menu,...MenuModuleMixinOpt}
+    );
     return mix2;
 }
 /**修正this */

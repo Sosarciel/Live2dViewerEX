@@ -1,26 +1,26 @@
-import { RefMixinable } from "@zwa73/modular-mixer";
+import { ComposeOpt } from "@zwa73/modular-mixer";
 import { L2dMotion } from "../Live2D";
 import { PDTap } from "../Predefined";
 import { _L2dvexFramework, L2dMenuMotion } from "./ModelFramework";
 import { UpdateModule } from "./UpdateModule";
+import { assertLiteral } from "@zwa73/utils";
 
 
 
 
 
 
-
-
-export class MenuModule implements RefMixinable<typeof MenuModule,MenuModule>{
-    //#region 混入设置
-    static readonly MIXIN_FIELDS = [
+/** 混入设置 */
+export const MenuModuleMixinOpt = {
+    key:'__menuModule',
+    fieldList:[
         'mainMenu'   ,
         'setMainMenu',
         'dctDecMtn'  ,
-    ] as const;
-    static readonly MIXIN_KEY = '__menuModule';
-    CTOR = MenuModule;
-    //#endregion
+    ]
+} as const;
+assertLiteral<ComposeOpt<MenuModule>>(MenuModuleMixinOpt);
+export class MenuModule {
     constructor(private _lf:
         Pick<_L2dvexFramework,'assignVar'|'addMotionsGroup'> & //防止循环引用
         Pick<UpdateModule,'addUpdateMotion'>

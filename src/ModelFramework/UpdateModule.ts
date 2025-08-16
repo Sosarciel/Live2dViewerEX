@@ -1,30 +1,26 @@
-import { RefMixinable } from "@zwa73/modular-mixer";
+import { ComposeOpt } from "@zwa73/modular-mixer";
 import { L2dMotion } from "../Live2D";
 import { MotionCommand, MotionGroup } from "../Motion";
 import { PDTick } from "../Predefined";
 import { VarFloatGetCode, VFObject } from "../VarFloat";
 import { _L2dvexFramework } from "./ModelFramework";
+import { assertLiteral } from "@zwa73/utils";
 
 
 
-
-
-
-
-
-export class UpdateModule implements RefMixinable<typeof UpdateModule,UpdateModule>{
-    //#region 混入设置
-    static readonly MIXIN_FIELDS = [
+/** 混入设置 */
+export const UpdateModuleMixinOpt = {
+    key:'__updateModule',
+    fieldList:[
         'addUpdateMotion'       ,
         'addTimerMotion'        ,
         'completeUpdateMotion'  ,
         'updateCount'           ,
         'getUpdateSeqMotuon'    ,
-    ] as const;
-    static readonly MIXIN_KEY = '__updateModule';
-    CTOR = UpdateModule;
-    //#endregion
-
+    ]
+} as const;
+assertLiteral<ComposeOpt<UpdateModule>>(UpdateModuleMixinOpt);
+export class UpdateModule {
     constructor(private _lf:_L2dvexFramework){}
     /**更新动作数量 */
     updateCount = 0;

@@ -1,22 +1,24 @@
-import { RefMixinable } from "@zwa73/modular-mixer";
+import { ComposeOpt } from "@zwa73/modular-mixer";
 import { MotionCommand, MotionGroup } from "../Motion";
 import { _L2dvexFramework, L2dvexFramework } from "./ModelFramework";
+import { assertLiteral } from "@zwa73/utils";
 
 
 
 
-export class StartModule implements RefMixinable<typeof StartModule,StartModule>{
-    //#region 混入设置
-    static readonly MIXIN_FIELDS = [
+/** 混入设置 */
+export const StartModuleMixinOpt = {
+    key:'__startModule',
+    fieldList:[
         'addStartPrevMotion'        ,
         'completeStartPrevMotion'   ,
         'addStartAfterMotion'       ,
         'setStartEndMotion'         ,
         'completeStartAfterMotion'  ,
-    ] as const;
-    static readonly MIXIN_KEY = '__startModule';
-    CTOR = StartModule;
-    //#endregion
+    ]
+} as const;
+assertLiteral<ComposeOpt<StartModule>>(StartModuleMixinOpt);
+export class StartModule {
     constructor(private _lf:_L2dvexFramework){}
     //#region StartPrev 动作
     /**动作计数器 */
