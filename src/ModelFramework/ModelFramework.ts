@@ -8,7 +8,7 @@ import { VFObject } from "../VarFloat";
 import { UpdateModule, UpdateModuleMixinOpt } from "./UpdateModule";
 import { StartModule, StartModuleMixinOpt } from "./StartModule";
 import { MenuModule, MenuModuleMixinOpt } from "./MenuModule";
-import { composeClass } from "@zwa73/modular-mixer";
+import { Composer } from "@zwa73/modular-mixer";
 
 /**l2d菜单动作 */
 export type L2dMenuMotion = Omit<L2dMotion,'Choices'> & Required<Pick<L2dMotion,'Choices'>>;
@@ -348,13 +348,13 @@ export class _L2dvexFramework<T extends AnyL2dvexModel = AnyL2dvexModel> impleme
 
 /**组合框架 */
 function compose<T extends AnyL2dvexModel = AnyL2dvexModel>(base:_L2dvexFramework<T>){
-    const mix1 = composeClass(base,
+    const mix1 = Composer.compose(base,
         {mixin:new UpdateModule(base),...UpdateModuleMixinOpt},
         {mixin:new StartModule(base) ,...StartModuleMixinOpt},
     )
 
     const menu = new MenuModule(mix1);
-    const mix2 = composeClass(mix1,
+    const mix2 = Composer.compose(mix1,
         {mixin:menu,...MenuModuleMixinOpt}
     );
     return mix2;

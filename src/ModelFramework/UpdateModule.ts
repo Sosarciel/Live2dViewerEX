@@ -4,7 +4,6 @@ import { MotionCommand, MotionGroup } from "../Motion";
 import { PDTick } from "../Predefined";
 import { VarFloatGetCode, VFObject } from "../VarFloat";
 import { _L2dvexFramework } from "./ModelFramework";
-import { assertLiteral } from "@zwa73/utils";
 
 
 
@@ -18,8 +17,7 @@ export const UpdateModuleMixinOpt = {
         'updateCount'           ,
         'getUpdateSeqMotuon'    ,
     ]
-} as const;
-assertLiteral<ComposeOpt<UpdateModule>>(UpdateModuleMixinOpt);
+} as const satisfies ComposeOpt<UpdateModule>;
 export class UpdateModule {
     constructor(private _lf:_L2dvexFramework){}
     /**更新动作数量 */

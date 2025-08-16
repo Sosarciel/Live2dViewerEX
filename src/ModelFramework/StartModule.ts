@@ -1,7 +1,6 @@
 import { ComposeOpt } from "@zwa73/modular-mixer";
 import { MotionCommand, MotionGroup } from "../Motion";
 import { _L2dvexFramework, L2dvexFramework } from "./ModelFramework";
-import { assertLiteral } from "@zwa73/utils";
 
 
 
@@ -16,8 +15,7 @@ export const StartModuleMixinOpt = {
         'setStartEndMotion'         ,
         'completeStartAfterMotion'  ,
     ]
-} as const;
-assertLiteral<ComposeOpt<StartModule>>(StartModuleMixinOpt);
+} as const satisfies ComposeOpt<StartModule>;
 export class StartModule {
     constructor(private _lf:_L2dvexFramework){}
     //#region StartPrev 动作

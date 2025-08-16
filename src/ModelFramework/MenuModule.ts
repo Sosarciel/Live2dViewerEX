@@ -3,7 +3,6 @@ import { L2dMotion } from "../Live2D";
 import { PDTap } from "../Predefined";
 import { _L2dvexFramework, L2dMenuMotion } from "./ModelFramework";
 import { UpdateModule } from "./UpdateModule";
-import { assertLiteral } from "@zwa73/utils";
 
 
 
@@ -18,8 +17,7 @@ export const MenuModuleMixinOpt = {
         'setMainMenu',
         'dctDecMtn'  ,
     ]
-} as const;
-assertLiteral<ComposeOpt<MenuModule>>(MenuModuleMixinOpt);
+} as const satisfies ComposeOpt<MenuModule>;
 export class MenuModule {
     constructor(private _lf:
         Pick<_L2dvexFramework,'assignVar'|'addMotionsGroup'> & //防止循环引用

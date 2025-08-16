@@ -1,7 +1,7 @@
 {
 	"name": "@sosarciel-live2dviewerex/live2dviewerex",
-	"version": "1.0.5",
-	"main": "index.js",
+	"version": "1.0.6",
+	"main": "dist/index.js",
 	"scripts": {
 		"build": "powershell scripts/build",
 		"compile": "powershell scripts/compile"
@@ -12,13 +12,11 @@
 	"files": [
 		"dist",
 		"data",
-		"schema",
-		"index.js",
-		"index.d.ts"
+		"schema"
 	],
 	"dependencies": {
-		"@zwa73/modular-mixer": "^1.0.5",
-		"@zwa73/utils": "^1.0.244",
+		"@zwa73/modular-mixer": "^1.0.8",
+		"@zwa73/utils": "^1.0.247",
 		"pathe": "^1.1.2"
 	}
 }
